@@ -262,7 +262,7 @@ void CM_TestPov(UINT id)
 	printf("Testing POVs\n");
 	int nDisc=0, nCont=0;
 	UINT pov;
-	char s_val[20], s_pov[20];
+	char s_val[20];
 
 	while (1)
 	{

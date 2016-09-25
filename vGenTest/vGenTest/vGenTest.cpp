@@ -1,7 +1,7 @@
 // Test vGenInterface - Unified API for vJoy and vXbox
-#include "../stdafx.h"
+#include "stdafx.h"
 #include <Xinput.h>
-#include "../vGenInterface.h"
+#include "../../vGenInterface.h"
 
 // General Functions
 void DisplayError(DWORD Err);

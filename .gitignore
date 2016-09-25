@@ -34,3 +34,4 @@ vGenTest/vXboxTest/Release/
 *.exe
 *.out
 *.app
+*.opendb
