@@ -35,3 +35,7 @@ vGenTest/vXboxTest/Release/
 *.out
 *.app
 *.opendb
+External/gen-versioninfo.h
+Win32/
+gen-versioninfo.h
+x64/
