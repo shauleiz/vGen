@@ -163,7 +163,7 @@ void PressButton(UINT iDev)
 
 	while (1)
 	{
-		printf("Enter button number\n");
+		printf("Enter button number in XINPUT values\n");
 		WORD btn;
 		char cTmp, sBtn[10];
 		scanf("%s%c", &sBtn,&cTmp);
@@ -183,7 +183,7 @@ void PressButton(UINT iDev)
 		if (act[0] == 'p')
 			press = TRUE;
 
-		DWORD ok = SetBtn(iDev, btn, press);
+		DWORD ok = SetButton(iDev, btn, press);
 	}
 
 }

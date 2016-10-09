@@ -486,7 +486,7 @@ VGENINTERFACE_API DWORD ResetControllerDPad(UINT UserIndex)
 
 VGENINTERFACE_API DWORD SetButton(UINT UserIndex, WORD Button, BOOL Press)
 {
-	return IX_SetBtn(UserIndex, Press,  Button);
+	return IX_SetBtn(UserIndex, Press,  Button, TRUE);
 }
 
 #ifdef SPECIFICBUTTONS
@@ -1525,7 +1525,7 @@ DWORD	IX_ResetControllerDPad(UINT UserIndex)
 	return IX_ResetControllerDPad(GetDevice(vXbox, UserIndex));
 }
 
-DWORD	IX_SetBtn(HDEVICE hDev, BOOL Press, WORD Button)
+DWORD	IX_SetBtn(HDEVICE hDev, BOOL Press, WORD Button, BOOL XInput)
 {
 	DWORD res;
 
@@ -1538,8 +1538,13 @@ DWORD	IX_SetBtn(HDEVICE hDev, BOOL Press, WORD Button)
 	XINPUT_GAMEPAD * position = (XINPUT_GAMEPAD *)GetDevicePos(hDev);
 	if (!position)
 		return STATUS_MEMORY_NOT_ALLOCATED;
+	
+	WORD Mask;
+	if (!XInput)
+		Mask = g_xButtons[Button - 1];
+	else
+		Mask = Button;
 
-	WORD Mask = g_xButtons[Button - 1];
 	// Change position value
 	position->wButtons &= ~Mask;
 	position->wButtons |= Mask*Press;
@@ -1555,9 +1560,9 @@ DWORD	IX_SetBtn(HDEVICE hDev, BOOL Press, WORD Button)
 		return STATUS_SUCCESS;
 }
 
-DWORD	IX_SetBtn(UINT UserIndex, BOOL Press, WORD Button)
+DWORD	IX_SetBtn(UINT UserIndex, BOOL Press, WORD Button, BOOL XInput)
 {
-	return IX_SetBtn(GetDevice(vXbox, UserIndex), Press, Button);
+	return IX_SetBtn(GetDevice(vXbox, UserIndex), Press, Button, XInput);
 }
 
 #ifdef SPECIFICBUTTONS

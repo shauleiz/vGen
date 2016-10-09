@@ -80,7 +80,7 @@ DWORD	IX_ResetControllerBtns(HDEVICE hDev);
 DWORD	IX_ResetControllerDPad(UINT UserIndex);
 DWORD	IX_ResetControllerDPad(HDEVICE hDev);
 // Data Transfer (Data to the device)
-DWORD	IX_SetBtn(UINT UserIndex, BOOL Press, WORD Button);
+DWORD	IX_SetBtn(UINT UserIndex, BOOL Press, WORD Button, BOOL XInput=FALSE);
 #ifdef SPECIFICBUTTONS
 BOOL	IX_SetBtnA(UINT UserIndex, BOOL Press);
 BOOL	IX_SetBtnB(UINT UserIndex, BOOL Press);
@@ -107,7 +107,7 @@ BOOL	IX_SetDpadDown(UINT UserIndex);
 BOOL	IX_SetDpadLeft(UINT UserIndex);
 BOOL	IX_SetDpadOff(UINT UserIndex);
 #endif // SPECIFICBUTTONS
-DWORD	IX_SetBtn(HDEVICE hDev, BOOL Press, WORD Button);
+DWORD	IX_SetBtn(HDEVICE hDev, BOOL Press, WORD Button, BOOL XInput=FALSE);
 #ifdef SPECIFICBUTTONS
 BOOL	IX_SetBtnA(HDEVICE hDev, BOOL Press);
 BOOL	IX_SetBtnB(HDEVICE hDev, BOOL Press);
