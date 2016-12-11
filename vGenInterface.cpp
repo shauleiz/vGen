@@ -172,6 +172,16 @@ VGENINTERFACE_API BOOL isVJDExists(UINT rID)					// TRUE if the specified vJoy D
 		return vJoyNS::isVJDExists(rID);
 }
 
+VGENINTERFACE_API int GetOwnerPid(UINT rID)
+{
+	if (Range_vXbox(rID))
+	{
+		return 0;
+	}
+	else
+		return vJoyNS::GetOwnerPid(rID);
+}
+
 VGENINTERFACE_API BOOL AcquireVJD(UINT rID)				// Acquire the specified vJoy Device.
 {
 	if (Range_vXbox(rID))

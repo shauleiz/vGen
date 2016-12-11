@@ -134,14 +134,14 @@ int CM_AcqDevice()
 
 
 	if (isVJDExists(DevId))
-		printf("vJoy device %d already acquired\n", DevId);
+		printf("vJoy device %d already acquired - PID=%d\n", DevId, GetOwnerPid(DevId));
 	else
 		printf("vJoy device %d does not exist\n", DevId);
 
 	AcquireVJD(DevId);
 
 	if (isVJDExists(DevId))
-		printf("vJoy device %d is acquired\n", DevId);
+		printf("vJoy device %d is acquired - PID=%d\n", DevId, GetOwnerPid(DevId));
 	else
 		printf("vJoy device %d does not exist\n", DevId);
 
