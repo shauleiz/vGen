@@ -63,6 +63,35 @@ void CM_DisplayStatus()
 	else
 		printf("vJoy not installed\n", vJoyVer);
 
+	// Get Device strings
+	LPCWSTR pwStr = (LPCWSTR)GetvJoyProductString();
+	LPCWSTR vwStr = (LPCWSTR)GetvJoyManufacturerString();
+	LPCWSTR snwStr = (LPCWSTR)GetvJoySerialNumberString();
+	printf("vJoy Strings: Prod:%S; Vendor:%S; Serial:%S\n", pwStr, vwStr, snwStr);
+
+	// Test Driver Match
+	WORD DllVer =0, DrvVer =0;
+	BOOL Match = DriverMatch(&DllVer, &DrvVer);
+	if (Match)
+		printf("vJoy DLL Matches Driver version (%x)\n", DllVer);
+	else
+		printf("vJoy DLL does NOT Match Driver version (%x/%x)\n", DllVer, DrvVer);
+
+	// Additional info
+	BOOL Supported;
+	vJoyFfbCap(&Supported);
+	if (Supported)
+		printf("vJoy Supports FFB\n");
+	else
+		printf("vJoy does NOT Support FFB\n");
+
+	int n;
+	GetvJoyMaxDevices(&n);
+	printf("vJoy max number of devices: %d\n", n);
+
+	GetNumberExistingVJD(&n);
+	printf("vJoy number of existing devices: %d\n", n);
+
 	// Scan which vJoy devices are installed
 	VjdStat DevStat;
 	printf("vJoy Devices: [M]issing, [O]wned, [F]ree, [B]usy\n");

@@ -31,6 +31,46 @@ VGENINTERFACE_API	BOOL		vJoyEnabled(void)
 	return vJoyNS::vJoyEnabled();
 }
 
+VGENINTERFACE_API	PVOID	GetvJoyProductString(void)
+{
+	return vJoyNS::GetvJoyProductString();
+}
+
+VGENINTERFACE_API	PVOID	GetvJoyManufacturerString(void)
+{
+	return vJoyNS::GetvJoyManufacturerString();
+}
+
+VGENINTERFACE_API	PVOID	GetvJoySerialNumberString(void)
+{
+	return vJoyNS::GetvJoySerialNumberString();
+}
+
+VGENINTERFACE_API	BOOL  DriverMatch(WORD * DllVer, WORD * DrvVer)
+{
+	return vJoyNS::DriverMatch(DllVer, DrvVer);
+}
+
+VGENINTERFACE_API	VOID	RegisterRemovalCB(RemovalCB cb, PVOID data)
+{
+	return vJoyNS::RegisterRemovalCB(cb,  data);
+}
+
+VGENINTERFACE_API	BOOL	vJoyFfbCap(BOOL * Supported)
+{
+	return vJoyNS::vJoyFfbCap(Supported);
+}
+
+VGENINTERFACE_API	BOOL	GetvJoyMaxDevices(int * n)
+{	
+	return vJoyNS::GetvJoyMaxDevices(n);
+}
+
+VGENINTERFACE_API	BOOL	GetNumberExistingVJD(int * n)	// What is the number of vJoy devices currently enabled
+{	
+	return vJoyNS::GetNumberExistingVJD(n);
+}
+
 VGENINTERFACE_API int GetVJDButtonNumber(UINT rID)	// Get the number of buttons defined in the specified device
 {
 	if (Range_vXbox(rID))

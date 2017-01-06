@@ -33,6 +33,8 @@ typedef INT HDEVICE;
 #define  INVALID_DEV (HDEVICE)0
 #define ValidDev(x) ((x == INVALID_DEV)?FALSE:TRUE)
 
+typedef void (CALLBACK *RemovalCB)(BOOL, BOOL, PVOID);
+
 #ifndef VJDSTAT
 #define VJDSTAT
 enum VjdStat  /* Declares an enumeration data type */
@@ -284,8 +286,16 @@ extern "C" {
 #pragma region Backward compatibility API
 //////////////////////////////////////////////////////////////////////////////////////
 // Version
-	VGENINTERFACE_API	SHORT		__cdecl GetvJoyVersion(void);
-	VGENINTERFACE_API	BOOL		__cdecl vJoyEnabled(void);
+	VGENINTERFACE_API	SHORT	__cdecl GetvJoyVersion(void);
+	VGENINTERFACE_API	BOOL	__cdecl vJoyEnabled(void);
+	VGENINTERFACE_API	PVOID	__cdecl	GetvJoyProductString(void);
+	VGENINTERFACE_API	PVOID	__cdecl	GetvJoyManufacturerString(void);
+	VGENINTERFACE_API	PVOID	__cdecl	GetvJoySerialNumberString(void);
+	VGENINTERFACE_API	BOOL	__cdecl	DriverMatch(WORD * DllVer, WORD * DrvVer);
+	VGENINTERFACE_API	VOID	__cdecl	RegisterRemovalCB(RemovalCB cb, PVOID data);
+	VGENINTERFACE_API	BOOL	__cdecl	vJoyFfbCap(BOOL * Supported);	// Is this version of vJoy capable of FFB?
+	VGENINTERFACE_API	BOOL	__cdecl	GetvJoyMaxDevices(int * n);	// What is the maximum possible number of vJoy devices
+	VGENINTERFACE_API	BOOL	__cdecl	GetNumberExistingVJD(int * n);	// What is the number of vJoy devices currently enabled
 
 	/////	vJoy/vXbox Device properties
 	VGENINTERFACE_API int	__cdecl  GetVJDButtonNumber(UINT rID);	// Get the number of buttons defined in the specified VDJ
