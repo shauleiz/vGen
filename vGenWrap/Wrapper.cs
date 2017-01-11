@@ -761,5 +761,30 @@ namespace vGenInterfaceWrap
         public UInt32 Ffb_h_Eff_Ramp(IntPtr Packet, ref FFB_EFF_RAMP RampEffect) { return _Ffb_h_Eff_Ramp( Packet, ref  RampEffect);}
         public UInt32 Ffb_h_Eff_Constant(IntPtr Packet, ref FFB_EFF_CONSTANT ConstantEffect) { return _Ffb_h_Eff_Constant(Packet, ref  ConstantEffect); }
         #endregion Backward compatibility API (vJoy)
+
+        #region vXbox API
+        public UInt32 isVBusExist() { return _isVBusExist(); }
+        public UInt32 GetNumEmptyBusSlots(ref Byte nSlots) { return _GetNumEmptyBusSlots(ref nSlots); }
+        public UInt32 isControllerPluggedIn(UInt32 UserIndex, ref bool Exist) { return _isControllerPluggedIn(UserIndex, ref  Exist); }
+        public UInt32 isControllerOwned(UInt32 UserIndex, ref Boolean Exist) { return _isControllerOwned(UserIndex, ref Exist); }
+        public UInt32 PlugIn(UInt32 UserIndex) { return _PlugIn(UserIndex); }
+        public UInt32 PlugInNext(ref UInt32 UserIndex) { return _PlugInNext(ref UserIndex); }
+        public UInt32 UnPlug(UInt32 UserIndex) { return _UnPlug(UserIndex); }
+        public UInt32 UnPlugForce(UInt32 UserIndex) { return _UnPlugForce(UserIndex); }
+        public UInt32 ResetController(UInt32 UserIndex) { return _ResetController(UserIndex); }
+        public UInt32 ResetAllControllers(UInt32 UserIndex) { return _ResetAllControllers(); }
+        public UInt32 SetButton(UInt32 UserIndex, UInt16 Button, Boolean Press) { return _SetButton(UserIndex, Button, Press); }
+#if SPECIFICRESET
+        public UInt32 ResetControllerBtns(UInt32 UserIndex) { return _ResetControllerBtns(UserIndex); }
+
+        public UInt32 ResetControllerDPad(UInt32 UserIndex) { return _ResetControllerDPad(UserIndex); }
+#endif // SPECIFICRESET
+
+#if SPECIFICBUTTONS
+        public UInt32 SetBtnA(UInt32 UserIndex, Boolean Press) { return _SetBtnA(UserIndex, Press); }
+        public UInt32 SetBtnB(UInt32 UserIndex, Boolean Press) { return _SetBtnB(UserIndex, Press); }
+#endif // SPECIFICBUTTONS
+
+        #endregion vXbox API
     }
 }

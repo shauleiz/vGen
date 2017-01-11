@@ -36,7 +36,7 @@ namespace WrapperTest
             label1.Text = prt;
             Enbld.Checked = enabled;
 
-            /////	vGen Device properties
+            /////	vGen Device properties (vJoy Devices)
             int nBtn = joystick.GetVJDButtonNumber(id);
             int nDPov = joystick.GetVJDDiscPovNumber(id);
             int nCPov = joystick.GetVJDContPovNumber(id);
@@ -55,6 +55,38 @@ namespace WrapperTest
                 prt = String.Format("Version of Driver ({0:X}) does NOT match DLL Version ({1:X})", DrvVer, DllVer);
             label7.Text = prt;
 
+            // vXbox devices
+            UInt32 UserIndex = 0;
+            bool Exist=false;
+            uint stat = joystick.isVBusExist();
+            if (stat == 0)
+            {
+                System.Diagnostics.Debug.WriteLine("======== vXbox bus installed");
+                Byte nSlots = 0;
+                stat = joystick.GetNumEmptyBusSlots(ref nSlots);
+                System.Diagnostics.Debug.WriteLine("======== Number of empty slots: " + nSlots.ToString() );
+                UserIndex = 2;
+                stat = joystick.PlugIn(UserIndex);
+                if (stat == 0)
+                    System.Diagnostics.Debug.WriteLine("======== vXbox device 2 was plugged in");
+                joystick.isControllerPluggedIn(UserIndex, ref Exist);
+                System.Diagnostics.Debug.WriteLine("======== vXbox device " + UserIndex.ToString() + " is plugged in: " + Exist.ToString());
+                joystick.isControllerOwned(UserIndex, ref Exist);
+                System.Diagnostics.Debug.WriteLine("======== vXbox device " + UserIndex.ToString() + " is owned: " + Exist.ToString());
+                UserIndex = 1;
+                joystick.isControllerPluggedIn(UserIndex, ref Exist);
+                System.Diagnostics.Debug.WriteLine("======== vXbox device " + UserIndex.ToString() + " is plugged in: " + Exist.ToString());
+                joystick.isControllerOwned(UserIndex, ref Exist);
+                System.Diagnostics.Debug.WriteLine("======== vXbox device " + UserIndex.ToString() + " is owned: " + Exist.ToString());
+                joystick.PlugInNext(ref  UserIndex);
+                joystick.isControllerPluggedIn(UserIndex, ref Exist);
+                System.Diagnostics.Debug.WriteLine("======== vXbox device " + UserIndex.ToString() + " is plugged in: " + Exist.ToString());
+                joystick.isControllerOwned(UserIndex, ref Exist);
+                System.Diagnostics.Debug.WriteLine("======== vXbox device " + UserIndex.ToString() + " is owned: " + Exist.ToString());
+                //joystick.UnPlug(2);
+            }
+
+            // Testing
             long max = 10, min = 10;
             bool ok;
             ok = joystick.GetVJDAxisMax(id, HID_USAGES.HID_USAGE_X, ref max);
