@@ -1498,10 +1498,10 @@ DWORD	IX_ResetController(UINT UserIndex)
 DWORD	IX_ResetAllControllers()
 {
 	DWORD res[4];
-	res[0] = IX_ResetController(1);
-	res[1] = IX_ResetController(2);
-	res[2] = IX_ResetController(3);
-	res[3] = IX_ResetController(4);
+	res[0] = IX_ResetController((UINT)1);
+	res[1] = IX_ResetController((UINT)2);
+	res[2] = IX_ResetController((UINT)3);
+	res[3] = IX_ResetController((UINT)4);
 
 	for (int i = 0; i < 4; i++)
 		if (res[i] != STATUS_SUCCESS)
