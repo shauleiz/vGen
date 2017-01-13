@@ -90,6 +90,7 @@ public enum FFBOP
     EFF_STOP = 3, // EFFECT STOP
 };
 
+
 namespace vGenInterfaceWrap
 {
     public class vGen
@@ -284,12 +285,16 @@ namespace vGenInterfaceWrap
         }
 
         [StructLayout(LayoutKind.Sequential)]
-        private struct XINPUT_VIBRATION
+        public struct XINPUT_VIBRATION
         {
             public UInt16 wLeftMotorSpeed;
             public UInt16 wRightMotorSpeed;
         }
 
+        public static byte XINPUT_GAMEPAD_DPAD_UP = 1;
+        public static byte XINPUT_GAMEPAD_DPAD_DOWN = 2;
+        public static byte XINPUT_GAMEPAD_DPAD_LRFT = 4;
+        public static byte XINPUT_GAMEPAD_DPAD_RIGHT = 8;
         /***************************************************/
         /***** Import from file vGenInterface.dll (C) ******/
         /***************************************************/
@@ -583,16 +588,16 @@ namespace vGenInterfaceWrap
         private static extern UInt32 _SetTriggerR(UInt32 UserIndex, Byte Value);
 
         [DllImport("vGenInterface.dll", EntryPoint = "SetAxisLx")]
-        private static extern UInt32 _SetAxisLx(UInt32 UserIndex, Byte Value);
+        private static extern UInt32 _SetAxisLx(UInt32 UserIndex, Int16 Value);
 
         [DllImport("vGenInterface.dll", EntryPoint = "SetAxisLy")]
-        private static extern UInt32 _SetAxisLy(UInt32 UserIndex, Byte Value);
+        private static extern UInt32 _SetAxisLy(UInt32 UserIndex, Int16 Value);
 
         [DllImport("vGenInterface.dll", EntryPoint = "SetAxisRx")]
-        private static extern UInt32 _SetAxisRx(UInt32 UserIndex, Byte Value);
+        private static extern UInt32 _SetAxisRx(UInt32 UserIndex, Int16 Value);
 
         [DllImport("vGenInterface.dll", EntryPoint = "SetAxisRy")]
-        private static extern UInt32 _SetAxisRy(UInt32 UserIndex, Byte Value);
+        private static extern UInt32 _SetAxisRy(UInt32 UserIndex, Int16 Value);
 
 
         // DPAD Functions
@@ -772,8 +777,9 @@ namespace vGenInterfaceWrap
         public UInt32 UnPlug(UInt32 UserIndex) { return _UnPlug(UserIndex); }
         public UInt32 UnPlugForce(UInt32 UserIndex) { return _UnPlugForce(UserIndex); }
         public UInt32 ResetController(UInt32 UserIndex) { return _ResetController(UserIndex); }
-        public UInt32 ResetAllControllers(UInt32 UserIndex) { return _ResetAllControllers(); }
+        public UInt32 ResetAllControllers() { return _ResetAllControllers(); }
         public UInt32 SetButton(UInt32 UserIndex, UInt16 Button, Boolean Press) { return _SetButton(UserIndex, Button, Press); }
+
 #if SPECIFICRESET
         public UInt32 ResetControllerBtns(UInt32 UserIndex) { return _ResetControllerBtns(UserIndex); }
 
@@ -783,7 +789,35 @@ namespace vGenInterfaceWrap
 #if SPECIFICBUTTONS
         public UInt32 SetBtnA(UInt32 UserIndex, Boolean Press) { return _SetBtnA(UserIndex, Press); }
         public UInt32 SetBtnB(UInt32 UserIndex, Boolean Press) { return _SetBtnB(UserIndex, Press); }
+        public UInt32 SetBtnX(UInt32 UserIndex, Boolean Press) { return _SetBtnX(UserIndex, Press); }
+        public UInt32 SetBtnY(UInt32 UserIndex, Boolean Press) { return _SetBtnY(UserIndex, Press); }
+        public UInt32 SetBtnLT(UInt32 UserIndex, Boolean Press) { return _SetBtnLT(UserIndex, Press); }
+        public UInt32 SetBtnRT(UInt32 UserIndex, Boolean Press) { return _SetBtnRT(UserIndex, Press); }
+        public UInt32 SetBtnLB(UInt32 UserIndex, Boolean Press) { return _SetBtnLB(UserIndex, Press); }
+        public UInt32 SetBtnRB(UInt32 UserIndex, Boolean Press) { return _SetBtnRB(UserIndex, Press); }
+        public UInt32 SetBtnStart(UInt32 UserIndex, Boolean Press) { return _SetBtnStart(UserIndex, Press); }
+        public UInt32 SetBtnBack(UInt32 UserIndex, Boolean Press) { return _SetBtnBack(UserIndex, Press); }
+#endif
+        // Trigger/Axis functions: Set value in the range
+        public UInt32 SetTriggerL(UInt32 UserIndex, Byte Value) { return _SetTriggerL(UserIndex, Value); }
+        public UInt32 SetTriggerR(UInt32 UserIndex, Byte Value) { return _SetTriggerR(UserIndex, Value); }
+        public UInt32 SetAxisLx(UInt32 UserIndex, Int16 Value) { return _SetAxisLx(UserIndex, Value); }
+        public UInt32 SetAxisLy(UInt32 UserIndex, Int16 Value) { return _SetAxisLy(UserIndex, Value); }
+        public UInt32 SetAxisRx(UInt32 UserIndex, Int16 Value) { return _SetAxisRx(UserIndex, Value); }
+        public UInt32 SetAxisRy(UInt32 UserIndex, Int16 Value) { return _SetAxisRy(UserIndex, Value); }
+        public UInt32 SetDpad(UInt32 UserIndex, Byte Value) { return _SetDpad(UserIndex, Value); }
+
+#if SPECIFICBUTTONS
+        public UInt32 SetDpadUp(UInt32 UserIndex) { return _SetDpadUp(UserIndex); }
+        public UInt32 SetDpadRight(UInt32 UserIndex) { return _SetDpadRight(UserIndex); }
+        public UInt32 SetDpadDown(UInt32 UserIndex) { return _SetDpadDown(UserIndex); }
+        public UInt32 SetDpadLeft(UInt32 UserIndex) { return _SetDpadLeft(UserIndex); }
+        public UInt32 SetDpadOff(UInt32 UserIndex) { return _SetDpadOff(UserIndex); }
 #endif // SPECIFICBUTTONS
+
+        // Feedback Polling: Assigned Led number / Vibration values
+        public UInt32 GetLedNumber(UInt32 UserIndex, ref Byte pLed) { return _GetLedNumber(UserIndex, ref pLed); }
+        public UInt32 GetVibration(UInt32 UserIndex, ref XINPUT_VIBRATION pVib) { return _GetVibration( UserIndex, ref  pVib); }
 
         #endregion vXbox API
     }

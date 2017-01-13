@@ -83,6 +83,39 @@ namespace WrapperTest
                 System.Diagnostics.Debug.WriteLine("======== vXbox device " + UserIndex.ToString() + " is plugged in: " + Exist.ToString());
                 joystick.isControllerOwned(UserIndex, ref Exist);
                 System.Diagnostics.Debug.WriteLine("======== vXbox device " + UserIndex.ToString() + " is owned: " + Exist.ToString());
+
+                joystick.SetButton(UserIndex, 1, true);
+                joystick.SetButton(UserIndex, 3, true);
+                joystick.ResetAllControllers();
+                joystick.SetButton(UserIndex, 1, false);
+                joystick.SetButton(UserIndex, 3, false);
+
+                joystick.SetTriggerL(UserIndex, 255);
+                joystick.SetTriggerR(UserIndex, 128);
+                joystick.SetAxisLx(UserIndex, -32768);
+                joystick.SetAxisLy(UserIndex, 32767);
+                joystick.SetAxisRx(UserIndex, -32000);
+                joystick.SetAxisRy(UserIndex, 32000);
+                joystick.SetDpad(UserIndex, vGen.XINPUT_GAMEPAD_DPAD_UP);
+                joystick.SetDpad(UserIndex, 0);
+
+                byte Led=0xFF;
+                vGen.XINPUT_VIBRATION Vib;
+                Vib.wRightMotorSpeed = Vib.wLeftMotorSpeed = 0;
+                joystick.GetLedNumber(UserIndex, ref Led);
+                System.Diagnostics.Debug.WriteLine("======== vXbox device " + UserIndex.ToString() + ": Led=" + Led.ToString() );
+
+                int x = 0, L=0, R=0;
+                while (x<1000)
+                {
+                    x++;
+                    stat =joystick.GetVibration(UserIndex, ref Vib);
+                    if ((Vib.wLeftMotorSpeed != L) || (Vib.wRightMotorSpeed != R))
+                        System.Diagnostics.Debug.WriteLine("======== vXbox device " + UserIndex.ToString() + ": Vibration (L/R)=" + Vib.wLeftMotorSpeed.ToString()+"/"+ Vib.wRightMotorSpeed.ToString() );
+                    System.Threading.Thread.Sleep(10);
+                }
+
+
                 //joystick.UnPlug(2);
             }
 
