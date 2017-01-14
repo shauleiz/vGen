@@ -90,6 +90,12 @@ public enum FFBOP
     EFF_STOP = 3, // EFFECT STOP
 };
 
+public enum DevType
+{
+    vJoy,
+    vXbox
+};
+
 
 namespace vGenInterfaceWrap
 {
@@ -632,6 +638,55 @@ namespace vGenInterfaceWrap
 
         #endregion vXbox API
 
+        #region Common API
+
+        [DllImport("vGenInterface.dll", EntryPoint = "AcquireDev")]
+        private static extern UInt32 _AcquireDev(UInt32 DevId, DevType dType, ref Int32 hDev);
+
+        [DllImport("vGenInterface.dll", EntryPoint = "RelinquishDev")]
+        private static extern UInt32 _RelinquishDev(Int32 hDev);
+
+        [DllImport("vGenInterface.dll", EntryPoint = "GetDevType")]
+        private static extern UInt32 _GetDevType(Int32 hDev, ref DevType dType);
+
+        [DllImport("vGenInterface.dll", EntryPoint = "GetDevNumber")]
+        private static extern UInt32 _GetDevNumber(Int32 hDev, ref UInt32 dNumber);
+
+        [DllImport("vGenInterface.dll", EntryPoint = "GetDevId")]
+        private static extern UInt32 _GetDevId(Int32 hDev, ref UInt32 dID);
+
+        [DllImport("vGenInterface.dll", EntryPoint = "isDevOwned")]
+        private static extern UInt32 _isDevOwned(UInt32 DevId, DevType dType, ref Boolean Owned);
+
+        [DllImport("vGenInterface.dll", EntryPoint = "isDevExist")]
+        private static extern UInt32 _isDevExist(UInt32 DevId, DevType dType, ref Boolean Exist);
+
+        [DllImport("vGenInterface.dll", EntryPoint = "isDevFree")]
+        private static extern UInt32 _isDevFree(UInt32 DevId, DevType dType, ref Boolean Free);
+
+        [DllImport("vGenInterface.dll", EntryPoint = "GetDevHandle")]
+        private static extern UInt32 _GetDevHandle(UInt32 DevId, DevType dType, ref Int32 hDev);
+
+        [DllImport("vGenInterface.dll", EntryPoint = "isAxisExist")]
+        private static extern UInt32 _isAxisExist(Int32 hDev, UInt32 nAxis, ref Boolean Exist);
+
+        [DllImport("vGenInterface.dll", EntryPoint = "GetDevButtonN")]
+        private static extern UInt32 _GetDevButtonN(Int32 hDev, ref UInt32 nBtn);
+
+        [DllImport("vGenInterface.dll", EntryPoint = "GetDevHatN")]
+        private static extern UInt32 _GetDevHatN(Int32 hDev, ref UInt32 nHat);
+
+        [DllImport("vGenInterface.dll", EntryPoint = "SetDevButton")]
+        private static extern UInt32 _SetDevButton(Int32 hDev, UInt32 Button, Boolean Press);
+
+        [DllImport("vGenInterface.dll", EntryPoint = "SetDevAxis")]
+        private static extern UInt32 _SetDevAxis(Int32 hDev, UInt32 Axis, float Value);
+
+        [DllImport("vGenInterface.dll", EntryPoint = "SetDevPov")]
+        private static extern UInt32 _SetDevPov(Int32 hDev, UInt32 nPov, float Value);
+
+        #endregion Common API
+
         /***************************************************/
         /********** Export functions (C#) ******************/
         /***************************************************/
@@ -820,5 +875,25 @@ namespace vGenInterfaceWrap
         public UInt32 GetVibration(UInt32 UserIndex, ref XINPUT_VIBRATION pVib) { return _GetVibration( UserIndex, ref  pVib); }
 
         #endregion vXbox API
+
+        #region Common API
+
+        public UInt32 AcquireDev(UInt32 DevId, DevType dType, ref Int32 hDev) { return _AcquireDev(DevId, dType, ref hDev); }
+        public UInt32 RelinquishDev(Int32 hDev) { return _RelinquishDev( hDev); }
+        public UInt32 GetDevType(Int32 hDev, ref DevType dType) { return _GetDevType( hDev, ref  dType); }
+        public UInt32 GetDevNumber(Int32 hDev, ref UInt32 dNumber) { return _GetDevNumber( hDev, ref  dNumber); }
+        public UInt32 GetDevId(Int32 hDev, ref UInt32 dID) { return _GetDevId(hDev, ref dID); }
+        public UInt32 isDevOwned(UInt32 DevId, DevType dType, ref Boolean Owned) { return _isDevOwned( DevId,  dType, ref  Owned); }
+        public UInt32 isDevExist(UInt32 DevId, DevType dType, ref Boolean Exist) { return _isDevExist(DevId, dType, ref Exist); }
+        public UInt32 isDevFree(UInt32 DevId, DevType dType, ref Boolean Free) { return _isDevFree(DevId, dType, ref Free); }
+        public UInt32 GetDevHandle(UInt32 DevId, DevType dType, ref Int32 hDev) { return _GetDevHandle( DevId,  dType, ref  hDev); }
+        public UInt32 isAxisExist(Int32 hDev, UInt32 nAxis, ref Boolean Exist) { return _isAxisExist(hDev, nAxis, ref Exist); }
+        public UInt32 GetDevButtonN(Int32 hDev, ref UInt32 nBtn) { return _GetDevButtonN(hDev, ref nBtn); }
+        public UInt32 GetDevHatN(Int32 hDev, ref UInt32 nHat) { return _GetDevHatN(hDev, ref nHat); }
+        public UInt32 SetDevButton(Int32 hDev, UInt32 Button, Boolean Press) { return _SetDevButton(hDev, Button, Press); }
+        public UInt32 SetDevAxis(Int32 hDev, UInt32 Axis, float Value) { return _SetDevAxis(hDev, Axis, Value); }
+        public UInt32 SetDevPov(Int32 hDev, UInt32 nPov, float Value) { return _SetDevPov(hDev, nPov, Value); }
+
+        #endregion Common API
     }
 }
