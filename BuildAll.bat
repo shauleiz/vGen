@@ -14,7 +14,7 @@ set BUILD_STATUS=%ERRORLEVEL%
 if not %BUILD_STATUS%==0 goto fail
 
 echo %DATE% %TIME%: Building vGen (x86)
-"%BUILDER%"  vGen.sln  /maxcpucount:4  /p:Platform=x86;Configuration=Release
+"%BUILDER%"  vGen.sln  /maxcpucount:4  /t:rebuild /p:Platform=x86;Configuration=Release
 set BUILD_STATUS=%ERRORLEVEL%
 if not %BUILD_STATUS%==0 goto fail
 
@@ -25,7 +25,7 @@ set BUILD_STATUS=%ERRORLEVEL%
 if not %BUILD_STATUS%==0 goto fail
 
 echo %DATE% %TIME%: Building vGen (x64)
-"%BUILDER%"  vGen.sln  /maxcpucount:4  /p:Platform=x64;Configuration=Release
+"%BUILDER%"  vGen.sln  /maxcpucount:4  /t:rebuild /p:Platform=x64;Configuration=Release
 set BUILD_STATUS=%ERRORLEVEL%
 if not %BUILD_STATUS%==0 goto fail
 
