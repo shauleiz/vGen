@@ -218,7 +218,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\vGenWrap\vGenInterfaceWrap.csproj">
       <Project>{ff5aae17-ba16-46b5-8c7b-ac860878d008}</Project>
-      <Name>vJoyInterfaceWrap</Name>
+      <Name>vGenInterfaceWrap</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

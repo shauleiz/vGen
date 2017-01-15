@@ -1135,6 +1135,7 @@ VGENINTERFACE_API DWORD SetDevAxis(HDEVICE hDev, UINT Axis, FLOAT Value)
 
 VGENINTERFACE_API DWORD  SetDevPov(HDEVICE hDev, UINT nPov, FLOAT Value)
 {
+
 	if SUCCEEDED(isDevice_vJoy(hDev))
 	{
 		// Don't test for type - just try
