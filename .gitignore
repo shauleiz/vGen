@@ -60,3 +60,6 @@ vGenWrap/obj/x86/Release/vGenInterfaceWrap.csproj.FileListAbsolute.txt
 vGenWrap/obj/x86/Release/vJoyInterfaceWrap.csproj.FileListAbsolute.txt
 vGenTest/WrapperTest/app.config
 vGenTest/WrapperTest/bldTester.bat
+SDK.zip
+vGenWrap/ComTest/obj/x86/Release/ComTest.csproj.FileListAbsolute.txt
+SDK/vGenInterface.pdf
